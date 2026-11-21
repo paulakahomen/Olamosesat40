@@ -1,0 +1,71 @@
+.frames__header {
+  display: flex;
+  flex-direction: column;
+  max-width: 62ch;
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+}
+
+.frames__header .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.frames__header .eyebrow::before {
+  content: '';
+  display: block;
+  width: clamp(1.25rem, 3vw, 2rem);
+  height: 1px;
+  background: var(--color-gold-line);
+}
+
+.frames__title {
+  margin-top: var(--space-2xs);
+  /* Tight leading pulls the large display type up against the eyebrow. */
+  line-height: var(--leading-tight);
+}
+
+.frames__lede {
+  margin-top: var(--space-md);
+  max-width: 54ch;
+}
+
+/* Three columns, two rows of frames. */
+.frames__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 48rem) {
+  .frames__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.frames__item {
+  margin: 0;
+}
+
+.frames__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid var(--color-line);
+  background-color: var(--color-charcoal-soft);
+  filter: saturate(0.94) contrast(1.03);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.frames__item:hover .frames__image {
+  transform: translateY(-4px);
+  border-color: var(--color-gold-line);
+}

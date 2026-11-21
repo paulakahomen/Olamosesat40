@@ -1,0 +1,48 @@
+.section {
+  position: relative;
+  padding-block: var(--section-space);
+  scroll-margin-top: var(--header-height);
+}
+
+.section--raised {
+  background-color: var(--color-charcoal);
+}
+
+.section--flush {
+  padding-block: 0;
+}
+
+.section__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  max-width: 62ch;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.section__header .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.section__header .eyebrow::before {
+  content: '';
+  display: block;
+  width: clamp(1.25rem, 3vw, 2rem);
+  height: 1px;
+  background: var(--color-gold-line);
+}
+
+.section__title {
+  margin-top: var(--space-3xs);
+}
+
+.section__lede {
+  margin-top: var(--space-xs);
+  max-width: 54ch;
+}
+
+.section__body {
+  position: relative;
+}

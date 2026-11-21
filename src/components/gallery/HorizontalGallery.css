@@ -1,0 +1,90 @@
+.h-gallery {
+  position: relative;
+  width: 100%;
+}
+
+.h-gallery__top {
+  padding-inline: var(--gutter);
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+/* The strip scrolls itself on every device — never the page. */
+.h-gallery__scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+  touch-action: pan-x pan-y;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+
+.h-gallery__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.h-gallery__scroll.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.h-gallery__scroll:focus-visible {
+  outline: 1px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.h-gallery__track {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: max-content;
+  margin: 0;
+  padding-inline: 1rem;
+  padding-block: var(--space-lg);
+  list-style: none;
+}
+
+.h-gallery__item {
+  flex: 0 0 auto;
+  margin: 0;
+  scroll-snap-align: center;
+  transform-origin: center center;
+}
+
+.h-gallery__image {
+  display: block;
+  height: clamp(15rem, 58svh, 30rem);
+  width: auto;
+  aspect-ratio: var(--ratio, 2 / 3);
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid var(--color-line);
+  background-color: var(--color-charcoal-soft);
+  filter: saturate(0.94) contrast(1.03);
+  user-select: none;
+}
+
+/* Desktop: centred stage, same native horizontal scrolling. */
+@media (min-width: 900px) {
+  .h-gallery {
+    max-width: 68rem;
+    margin-inline: auto;
+  }
+
+  .h-gallery__top {
+    padding-inline: clamp(1.5rem, 3vw, 3rem);
+    margin-bottom: clamp(1.5rem, 3.5vh, 2.5rem);
+  }
+
+  .h-gallery__track {
+    gap: clamp(1.5rem, 2vw, 2rem);
+    padding-inline: clamp(1.5rem, 3vw, 3rem);
+    padding-block: 0;
+  }
+
+  .h-gallery__image {
+    height: clamp(18rem, 56vh, 34rem);
+  }
+}

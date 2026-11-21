@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  max-width: var(--layout-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--wide {
+  max-width: var(--layout-wide);
+}
+
+.container--narrow {
+  max-width: var(--layout-narrow);
+}
+
+.container--full {
+  max-width: none;
+  padding-inline: 0;
+}

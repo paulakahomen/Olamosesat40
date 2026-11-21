@@ -1,0 +1,455 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100svh;
+  padding-block: calc(var(--header-height) + clamp(1.5rem, 4vh, 3rem))
+    clamp(1.25rem, 2.5vh, 2rem);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      90% 60% at 85% 8%,
+      rgba(198, 166, 103, 0.16) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      60% 45% at 0% 100%,
+      rgba(198, 166, 103, 0.06) 0%,
+      transparent 70%
+    ),
+    linear-gradient(180deg, #070709 0%, #0b0b0d 55%, #101013 100%);
+}
+
+/* Soft gold hairline at the base of the frame. */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-gold-line) 50%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+.hero__inner {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 4rem);
+  width: 100%;
+}
+
+/* Content ----------------------------------------------------------------- */
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.75rem, 1.2vw, 1rem);
+  animation: hero-rise var(--duration-slow) var(--ease-out) both;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: clamp(0.8125rem, 0.75rem + 0.3vw, 1rem);
+  letter-spacing: var(--tracking-wider);
+}
+
+.hero__eyebrow-rule {
+  display: block;
+  width: clamp(1.75rem, 4vw, 3rem);
+  height: 1px;
+  background: var(--color-gold);
+}
+
+.hero__title {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+  margin-top: clamp(0.5rem, 1.2vw, 1rem);
+}
+
+.hero__title-name {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 9.5vw, 8rem);
+  font-weight: var(--weight-light);
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: var(--color-warm-white);
+}
+
+.hero__headline {
+  font-family: var(--font-display);
+  font-size: clamp(0.9375rem, 1.5vw, 1.25rem);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-warm-white-72);
+}
+
+.hero__celebrant {
+  font-family: var(--font-body);
+  font-size: clamp(0.9375rem, 0.85rem + 0.4vw, 1.125rem);
+  font-weight: var(--weight-semibold);
+  line-height: 1.5;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.hero__statement {
+  max-width: 26ch;
+  margin-top: clamp(0.5rem, 1.2vw, 1rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2.2vw, 2rem);
+  font-weight: var(--weight-regular);
+  font-style: italic;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-warm-white);
+  text-wrap: pretty;
+}
+
+.hero__intro {
+  max-width: 48ch;
+  margin-top: var(--space-3xs);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
+  line-height: var(--leading-relaxed);
+  color: var(--color-warm-white-52);
+}
+
+/* Portrait ---------------------------------------------------------------- */
+
+.hero__portrait {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+  justify-self: start;
+  animation: hero-fade var(--duration-slow) var(--ease-out) 140ms both;
+}
+
+/* Offset gold corner lines — they draw themselves in, then breathe. */
+.hero__portrait-accent {
+  position: absolute;
+  inset-block-start: -0.75rem;
+  inset-inline-end: -0.75rem;
+  width: 60%;
+  height: 55%;
+  pointer-events: none;
+  animation: hero-accent-breathe 4.5s var(--ease-in-out) 1.6s infinite;
+}
+
+.hero__portrait-accent::before,
+.hero__portrait-accent::after {
+  content: '';
+  position: absolute;
+  background: var(--color-gold-line);
+}
+
+/* Horizontal arm of the corner: draws in, then a light sweeps along it. */
+.hero__portrait-accent::before {
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(198, 166, 103, 0.55);
+  background-image: linear-gradient(
+    90deg,
+    rgba(198, 166, 103, 0.45) 0%,
+    rgba(198, 166, 103, 0.45) 32%,
+    #fff6e2 50%,
+    rgba(198, 166, 103, 0.45) 68%,
+    rgba(198, 166, 103, 0.45) 100%
+  );
+  background-size: 220% 100%;
+  filter: drop-shadow(0 0 6px rgba(223, 196, 143, 0.55));
+  transform-origin: right center;
+  animation:
+    hero-line-draw-x 900ms var(--ease-out) 350ms both,
+    hero-line-sweep-x 2.2s linear 0.9s infinite;
+}
+
+/* Vertical arm of the corner: draws in, then a light sweeps along it. */
+.hero__portrait-accent::after {
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  width: 2px;
+  height: 100%;
+  background-color: rgba(198, 166, 103, 0.55);
+  background-image: linear-gradient(
+    180deg,
+    rgba(198, 166, 103, 0.45) 0%,
+    rgba(198, 166, 103, 0.45) 32%,
+    #fff6e2 50%,
+    rgba(198, 166, 103, 0.45) 68%,
+    rgba(198, 166, 103, 0.45) 100%
+  );
+  background-size: 100% 220%;
+  filter: drop-shadow(0 0 6px rgba(223, 196, 143, 0.55));
+  transform-origin: center top;
+  animation:
+    hero-line-draw-y 700ms var(--ease-out) 250ms both,
+    hero-line-sweep-y 2.2s linear 0.9s infinite;
+}
+
+/* Matching corner at the opposite side. */
+.hero__portrait-accent--end {
+  inset-block-start: auto;
+  inset-inline-end: auto;
+  inset-block-end: -0.75rem;
+  inset-inline-start: -0.75rem;
+}
+
+.hero__portrait-accent--end::before {
+  inset-block-start: auto;
+  inset-block-end: 0;
+  inset-inline-end: auto;
+  inset-inline-start: 0;
+  transform-origin: left center;
+  animation:
+    hero-line-draw-x 900ms var(--ease-out) 750ms both,
+    hero-line-sweep-x 2.2s linear 1.2s infinite reverse;
+}
+
+.hero__portrait-accent--end::after {
+  inset-block-start: auto;
+  inset-block-end: 0;
+  inset-inline-end: auto;
+  inset-inline-start: 0;
+  transform-origin: center bottom;
+  animation:
+    hero-line-draw-y 700ms var(--ease-out) 650ms both,
+    hero-line-sweep-y 2.2s linear 1.2s infinite reverse;
+}
+
+.hero__portrait-frame {
+  position: relative;
+  height: clamp(21rem, 66svh, 36rem);
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 11 / 17;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  background-color: var(--color-charcoal-raised);
+}
+
+.hero__portrait-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.9) contrast(1.05) brightness(0.97);
+  transform: scale(1.01);
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.hero__portrait:hover .hero__portrait-image {
+  transform: scale(1.035);
+}
+
+/* Warm vignette so the studio backdrop sits inside the dark page. */
+.hero__portrait-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 8, 10, 0.22) 0%,
+      transparent 32%,
+      transparent 68%,
+      rgba(8, 8, 10, 0.42) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(198, 166, 103, 0.07) 0%,
+      transparent 55%
+    );
+}
+
+.hero__portrait-index {
+  position: absolute;
+  inset-block-end: var(--space-xs);
+  inset-inline-start: var(--space-sm);
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-light);
+  line-height: 1;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-warm-white-72);
+}
+
+/* Scroll cue --------------------------------------------------------------- */
+
+.hero__scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  align-self: center;
+  margin-top: clamp(1.75rem, 4.5vh, 3rem);
+  padding-block-end: var(--space-3xs);
+  color: var(--color-warm-white-32);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.hero__scroll:hover,
+.hero__scroll:focus-visible {
+  color: var(--color-warm-white-72);
+}
+
+.hero__scroll-label {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.hero__scroll-track {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: clamp(2rem, 4vh, 2.75rem);
+  overflow: hidden;
+  background: var(--color-line-strong);
+}
+
+.hero__scroll-line {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  height: 55%;
+  background: linear-gradient(180deg, transparent, var(--color-gold));
+  animation: hero-scroll-cue 2.8s var(--ease-in-out) infinite;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-line-draw-x {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-line-draw-y {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-line-sweep-x {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+
+@keyframes hero-line-sweep-y {
+  from {
+    background-position: 0 100%;
+  }
+  to {
+    background-position: 0 0%;
+  }
+}
+
+@keyframes hero-accent-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-scroll-cue {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(185%);
+    opacity: 0;
+  }
+}
+
+/* Tablet and up: editorial two-column split -------------------------------- */
+
+@media (min-width: 48rem) {
+  .hero__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .hero__content {
+    flex: 0 1 auto;
+    max-width: 34rem;
+  }
+
+  .hero__portrait {
+    flex: 0 0 auto;
+  }
+}
+
+@media (min-width: 64rem) {
+  /* Vertical hairline separating the type column from the portrait. */
+  .hero__portrait {
+    padding-inline-start: clamp(1.5rem, 3vw, 3rem);
+    border-inline-start: 1px solid var(--color-line);
+  }
+}

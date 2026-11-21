@@ -1,0 +1,400 @@
+.wishes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* The wall and its list dissolve so the notes become direct children of the
+   grid — letting them flow around the form instead of only below it. */
+.wishes__wall {
+  display: contents;
+}
+
+.wishes__notice {
+  grid-column: 1 / -1;
+  border: 1px solid var(--color-gold-line);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--color-warm-white-52);
+}
+
+.wishes__notice code {
+  color: var(--color-gold-bright);
+  font-size: 0.95em;
+}
+
+/* Form -------------------------------------------------------------------- */
+
+.wishes__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--color-line);
+  background: rgba(22, 22, 26, 0.55);
+  text-align: left;
+}
+
+.wishes__fields {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.wishes__field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  text-align: left;
+}
+
+.wishes__label {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-warm-white-32);
+}
+
+.wishes__field input,
+.wishes__field textarea {
+  width: 100%;
+  padding: var(--space-2xs) 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-line-strong);
+  background: transparent;
+  color: var(--color-warm-white);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  text-align: left;
+  resize: vertical;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.wishes__field textarea {
+  min-height: 5.25rem;
+}
+
+.wishes__field input::placeholder,
+.wishes__field textarea::placeholder {
+  color: var(--color-warm-white-32);
+}
+
+.wishes__field input:focus-visible,
+.wishes__field textarea:focus-visible {
+  outline: none;
+  border-bottom-color: var(--color-gold);
+}
+
+.wishes__field input:disabled,
+.wishes__field textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wishes__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm) var(--space-md);
+  text-align: center;
+}
+
+.wishes__submit {
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--color-gold-line);
+  color: var(--color-gold);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.wishes__submit:hover:not(:disabled) {
+  background: var(--color-gold-soft);
+  color: var(--color-warm-white);
+}
+
+.wishes__submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.wishes__feedback {
+  font-size: var(--text-sm);
+  color: var(--color-warm-white-52);
+}
+
+.wishes__feedback[data-tone='success'] {
+  color: var(--color-gold-bright);
+}
+
+.wishes__feedback[data-tone='error'] {
+  color: #e0a3a3;
+}
+
+/* Wall -------------------------------------------------------------------- */
+
+/* Three columns from 64rem up: notes fill the left and right columns, continue
+   underneath the form's rows, and the form holds the middle column. */
+@media (min-width: 64rem) {
+  .wishes {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 26rem) minmax(0, 1fr);
+  }
+
+  .wishes__form {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .wishes__notice,
+  .wishes__status,
+  .wishes__skeletons {
+    grid-column: 1 / -1;
+  }
+}
+
+.wishes__status {
+  font-size: var(--text-sm);
+  color: var(--color-warm-white-32);
+}
+
+.wishes__notes {
+  display: contents;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wishes__note {
+  --note-bg: var(--color-charcoal-raised);
+  --note-border: var(--color-line);
+  --note-shadow: 0 18px 38px -28px rgba(0, 0, 0, 0.9);
+
+  break-inside: avoid;
+  margin: 0;
+}
+
+/* Charcoal → gold variations drawn from the site palette. */
+.wishes__note[data-variant='1'] {
+  --note-bg: rgba(198, 166, 103, 0.1);
+  --note-border: rgba(198, 166, 103, 0.32);
+}
+
+.wishes__note[data-variant='2'] {
+  --note-bg: var(--color-charcoal);
+  --note-border: var(--color-line-strong);
+}
+
+.wishes__note[data-variant='3'] {
+  --note-bg:
+    radial-gradient(
+      120% 100% at 0% 0%,
+      rgba(198, 166, 103, 0.14) 0%,
+      transparent 62%
+    ),
+    var(--color-charcoal-raised);
+  --note-border: var(--color-gold-line);
+}
+
+.wishes__note[data-variant='4'] {
+  --note-bg: linear-gradient(
+    160deg,
+    rgba(29, 29, 34, 0.95) 0%,
+    rgba(16, 16, 18, 0.95) 100%
+  );
+  --note-border: rgba(244, 239, 230, 0.16);
+}
+
+.wishes__note-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: clamp(1.1rem, 2vw, 1.35rem) clamp(1.1rem, 2vw, 1.5rem)
+    clamp(1.15rem, 2vw, 1.5rem);
+  border: 1px solid var(--note-border);
+  border-radius: 0.9rem;
+  background: var(--note-bg);
+  color: var(--color-warm-white-72);
+  text-align: left;
+  box-shadow: var(--note-shadow);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.wishes__note-button:hover,
+.wishes__note-button:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--color-gold-line);
+  box-shadow:
+    0 28px 50px -26px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(198, 166, 103, 0.18);
+  color: var(--color-warm-white);
+}
+
+.wishes__note-text {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  font-family: var(--font-hand);
+  font-size: clamp(1.3rem, 1.1rem + 0.55vw, 1.65rem);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: 0.005em;
+  text-wrap: pretty;
+}
+
+.wishes__note-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--space-2xs);
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-gold);
+}
+
+.wishes__note-avatar {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--color-gold-soft);
+  color: var(--color-gold);
+}
+
+.wishes__note-avatar svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+
+/* Loading skeletons. */
+.wishes__skeletons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.wishes__skeletons span {
+  height: 7rem;
+  border: 1px solid var(--color-line);
+  background: linear-gradient(
+    100deg,
+    rgba(29, 29, 34, 0.6) 0%,
+    rgba(48, 48, 54, 0.55) 50%,
+    rgba(29, 29, 34, 0.6) 100%
+  );
+  background-size: 220% 100%;
+  animation: wishes-shimmer 1.8s var(--ease-in-out) infinite;
+}
+
+@keyframes wishes-shimmer {
+  from {
+    background-position: 130% 0;
+  }
+  to {
+    background-position: -30% 0;
+  }
+}
+
+/* Modal ------------------------------------------------------------------- */
+
+.wishes__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: rgba(4, 4, 5, 0.84);
+  backdrop-filter: blur(8px);
+  animation: wishes-fade var(--duration-base) var(--ease-out) both;
+}
+
+.wishes__modal {
+  position: relative;
+  width: min(100%, 34rem);
+  max-height: 80svh;
+  overflow-y: auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid var(--color-gold-line);
+  background: var(--color-charcoal-raised);
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.9);
+}
+
+.wishes__modal-text {
+  margin-top: var(--space-sm);
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--color-warm-white);
+  text-wrap: pretty;
+}
+
+.wishes__modal-name {
+  margin-top: var(--space-md);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.wishes__modal-close {
+  position: absolute;
+  inset-block-start: var(--space-md);
+  inset-inline-end: var(--space-md);
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--color-line);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-warm-white-52);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.wishes__modal-close:hover,
+.wishes__modal-close:focus-visible {
+  color: var(--color-warm-white);
+  border-color: var(--color-gold-line);
+}
+
+@keyframes wishes-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
