@@ -159,9 +159,16 @@ export function Wishes() {
       <div className="wishes">
         {!isSupabaseConfigured && (
           <p className="wishes__notice" role="status">
-            The wishes wall is not connected yet. Add{' '}
-            <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code>{' '}
-            to your <code>.env.local</code> to enable submissions.
+            {import.meta.env.DEV ? (
+              <>
+                The wishes wall is not connected yet. Add{' '}
+                <code>VITE_SUPABASE_URL</code> and{' '}
+                <code>VITE_SUPABASE_ANON_KEY</code> to your{' '}
+                <code>.env.local</code> to enable submissions.
+              </>
+            ) : (
+              <>The wishes wall is temporarily unavailable. Please check back soon.</>
+            )}
           </p>
         )}
 
